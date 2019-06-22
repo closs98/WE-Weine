@@ -7,9 +7,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get(':id')
-  get(@Param('id') id): Wein{
-    let idNum = parseInt(id);
-    return this.appService.get(idNum);
+  get(@Param('id') id:string): Wein{
+    return this.appService.get(+id);
   }
 
   @Get()
@@ -27,17 +26,15 @@ export class AppController {
 
   @Put(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  put(@Param('id') id, @Body() wein): void{
+  put(@Param('id') id:string, @Body() wein): void{
     let weinObject : Wein = new Wein(null, wein.sorte, wein.gebiet, wein.jahr);
-    let idNum = parseInt(id);
-    this.appService.update(idNum, weinObject);
+    this.appService.update(+id, weinObject);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id') id): void{
-    let idNum = parseInt(id);
-    this.appService.delete(idNum);
+  delete(@Param('id') id:string): void{
+    this.appService.delete(+id);
   }
 
 
